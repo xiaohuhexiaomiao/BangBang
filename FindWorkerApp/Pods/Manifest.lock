@@ -1,0 +1,67 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - BaiduMapKit (3.4.0)
+  - FMDB (2.7.2):
+    - FMDB/standard (= 2.7.2)
+  - FMDB/standard (2.7.2)
+  - HappyDNS (0.3.12)
+  - JCore (1.1.5)
+  - JPush (3.0.6):
+    - JCore (~> 1.1.1)
+  - Masonry (1.0.2)
+  - MBProgressHUD (0.9.2)
+  - MONActivityIndicatorView (0.0.3)
+  - Qiniu (7.1.6):
+    - AFNetworking (~> 3)
+    - HappyDNS (~> 0.3)
+  - RongCloudIM/IMKit (2.8.17):
+    - RongCloudIM/IMLib
+  - RongCloudIM/IMLib (2.8.17)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.1.0)
+  - BaiduMapKit (~> 3.4.0)
+  - FMDB
+  - JPush (= 3.0.6)
+  - Masonry
+  - MBProgressHUD (~> 0.8)
+  - MONActivityIndicatorView (~> 0.0.3)
+  - Qiniu (~> 7.1)
+  - RongCloudIM/IMKit (~> 2.8.3)
+  - RongCloudIM/IMLib (~> 2.8.3)
+  - SDWebImage (~> 3.7.2)
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BaiduMapKit: 0a5e5e0b1e3fd8dc5aceb40ab9b89e52e1d13df9
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  HappyDNS: 691a3041128055d09866f86e6e9ca90f24da1f18
+  JCore: 9bd9c770c877c583d98b90a68792b8361974c231
+  JPush: c41be50eb1a574a66aeb68d237f00a4ec6ec3a82
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MONActivityIndicatorView: a00611695de16d956b17d03be25ee49a8effc5f2
+  Qiniu: 8af94ce9b1611ed5f4350883e41d4a62cabad491
+  RongCloudIM: 98e7b716d1de918db429b74e2b046752d28add3e
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+
+PODFILE CHECKSUM: af3002d80fa8f58e68e4fe1b3010d8da8734ec40
+
+COCOAPODS: 1.2.0.beta.1

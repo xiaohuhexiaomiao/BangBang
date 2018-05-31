@@ -1,0 +1,6 @@
+framework module MONActivityIndicatorView {
+  umbrella header "MONActivityIndicatorView-umbrella.h"
+
+  export *
+  module * { export * }
+}
