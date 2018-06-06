@@ -197,7 +197,7 @@
     }else if (indexPath.section == 2){
         AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
         bookVC.isSelect = YES;
-        bookVC.isAddManager = YES;
+        bookVC.operation_type = 1;
         bookVC.companyid = self.company_id;
         bookVC.loadDataType = 2;
         bookVC.hidesBottomBarWhenPushed = YES;

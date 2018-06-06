@@ -387,7 +387,7 @@
 -(void)clickProjectManager
 {
     AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
-    bookVC.isSelectedManager = YES;
+    bookVC.is_single_selected = YES;
     bookVC.companyid = self.companyID;
     bookVC.delegate = self;
     bookVC.loadDataType = 2;
@@ -506,13 +506,6 @@
         self.hidesBottomBarWhenPushed = YES;
     }
 }
-
-
-
-
-
-
-
 
 
 #pragma mark 界面相关
@@ -747,8 +740,7 @@
     _fileView = [[MoreFilesView alloc]initWithFrame:CGRectMake(8, _lastView.bottom, SCREEN_WIDTH-16, 30)];
     [_bgScrollview addSubview:_fileView];
     [_fileView addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    [_fileView.addButton setTitle:@"+添加附件（照片、结算单、工资表等）" forState:UIControlStateNormal];
-    
+    _fileView.descripeLabel.text = @"（请上传照片、结算单、工资表等）";
     
     _line6 = [self customLineViewWithFrame:CGRectMake(line1.left, _fileView.bottom, line1.width, 1)];
     [_bgScrollview addSubview:_line6];

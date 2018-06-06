@@ -121,6 +121,8 @@
         self.typeLabel.text = @"合同评审表";
     }else if(reviewModel.type == 11){
         self.typeLabel.text = @"报销单";
+    }else if(reviewModel.type == 12){
+        self.typeLabel.text = @"验收单";
     }
     
     self.contentLable.text = reviewModel.title;
@@ -202,6 +204,8 @@
         self.typeLabel.text = @"请款单";
     }else if(reviewModel.type == 4){
         self.typeLabel.text = @"报销单";
+    }else if(reviewModel.type == 12){
+        self.typeLabel.text = @"验收单";
     }
     
     self.contentLable.text = reviewModel.title;

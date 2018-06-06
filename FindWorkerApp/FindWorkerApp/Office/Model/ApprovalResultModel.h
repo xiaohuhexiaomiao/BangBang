@@ -16,7 +16,7 @@
 
 @property(nonatomic ,strong)NSDictionary *finance;//回执
 
-@property(nonatomic ,strong)NSDictionary *supply;//呈批协议
+@property(nonatomic ,strong)NSArray *supply;//呈批协议
 
 @property(nonatomic ,strong)NSString *found_name;
 

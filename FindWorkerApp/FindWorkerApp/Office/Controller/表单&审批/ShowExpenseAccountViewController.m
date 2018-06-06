@@ -126,7 +126,7 @@
                                     @"participation_id":self.participation_id};
         
         [[NetworkSingletion sharedManager]getLoadToken:paramDict onSucceed:^(NSDictionary *dict) {
-            //            NSLog(@"load %@",dict);
+//                        NSLog(@"load %@",dict);
             if ([dict[@"code"] integerValue] == 0) {
                 NSString *token = dict[@"data"];
                 NSString *urlStr = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/aaampd_picture?token=%@",API_HOST,token];

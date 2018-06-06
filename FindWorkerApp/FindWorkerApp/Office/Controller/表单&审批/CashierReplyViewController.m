@@ -21,6 +21,7 @@
 #import "ShowPurchaseViewController.h"
 #import "ShowCompanyViewController.h"
 #import "ShowStampViewController.h"
+#import "ShowExpenseAccountViewController.h"
 
 @interface CashierReplyViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
@@ -338,7 +339,7 @@
     ShowStampViewController *stampVC = [[ShowStampViewController alloc]init];
     ShowFileViewController *fileVC = [[ShowFileViewController alloc]init];
     ShowCompanyViewController *companyVC = [[ShowCompanyViewController alloc]init];
-    
+    ShowExpenseAccountViewController *expenseVC = [[ShowExpenseAccountViewController alloc]init];
     if (tableView == self.firstTableview) {
         listModel = self.firstArray[indexPath.row];
         payVC.is_aready_approval = NO;
@@ -347,6 +348,7 @@
         stampVC.is_aready_approval = NO;
         fileVC.is_aready_approval = NO;
         companyVC.is_aready_approval = NO;
+        expenseVC.is_aready_approval = NO;
     }else{
         listModel = self.secondArray[indexPath.row];
         payVC.is_aready_approval = YES;
@@ -355,12 +357,15 @@
         stampVC.is_aready_approval = YES;
         fileVC.is_aready_approval = YES;
         companyVC.is_aready_approval = YES;
+        expenseVC.is_aready_approval = YES;
     }
-   if (listModel.type == 0||listModel.type == 8||listModel.type == 9){        payVC.approvalID = listModel.approval_id;
+   if (listModel.type == 0||listModel.type == 8||listModel.type == 9){
+        payVC.approvalID = listModel.approval_id;
         payVC.personal_id = self.personalId;
         payVC.is_cashier = YES;
         [self.navigationController pushViewController:payVC animated:YES];
-   }else if (listModel.type == 3 ||listModel.type == 7||listModel.type == 10){       purchaseVC.approvalID = listModel.approval_id;
+   }else if (listModel.type == 3 ||listModel.type == 7||listModel.type == 10){
+       purchaseVC.approvalID = listModel.approval_id;
        purchaseVC.is_cashier = YES;
        purchaseVC.personal_id = self.personalId;
        [self.navigationController pushViewController:purchaseVC animated:YES];
@@ -375,11 +380,26 @@
        reviewVC.hidesBottomBarWhenPushed = YES;
        [self.navigationController pushViewController:reviewVC animated:YES];
        self.hidesBottomBarWhenPushed = YES;
+   }else if (listModel.type == 5){
+       stampVC.approvalID = listModel.approval_id;
+       stampVC.personal_id = self.personalId;
+       stampVC.is_cashier = YES;
+       [self.navigationController pushViewController:stampVC animated:YES];
+   }else if (listModel.type == 6){
+       fileVC.approvalID = listModel.approval_id;
+       fileVC.personal_id = self.personalId;
+       fileVC.is_cashier = YES;
+       [self.navigationController pushViewController:fileVC animated:YES];
    }else if (listModel.type == 111){
        companyVC.approval_id = listModel.approval_id;
        companyVC.personal_id = self.personalId;
        companyVC.is_cashier = YES;
        [self.navigationController pushViewController:companyVC animated:YES];
+   }else if (listModel.type == 11){
+       expenseVC.approvalID = listModel.approval_id;
+       expenseVC.personal_id = self.personalId;
+       expenseVC.is_cashier = YES;
+       [self.navigationController pushViewController:expenseVC animated:YES];
    }
 }
 

@@ -25,7 +25,7 @@
 
 @property(nonatomic , strong) UICollectionView *photoCollectionView;
 
-
+@property(nonatomic , strong) UIView *addView;
 
 @property(nonatomic , strong) UIView *lastView;
 
@@ -51,11 +51,23 @@
 {
    self = [super init];
     if (self) {
-        _addButton  = [CustomView customButtonWithContentView:self image:nil title:@"+添加附件"];
-        _addButton.frame = CGRectMake(0, 5, SCREEN_WIDTH-16, 20);
-        _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_addButton addTarget:self action:@selector(clickAddFiles:) forControlEvents:UIControlEventTouchUpInside];
-        _lastView = _addButton;
+        NSArray *picArray = @[@"photo1",@"pic",@"file"];
+        _addView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-16, 30)];
+        [self addSubview:_addView];
+        for (int i = 0; i < picArray.count; i++) {
+            UIButton* button  = [CustomView customButtonWithContentView:_addView image:picArray[i] title:nil];
+            button.frame = CGRectMake(40*i, 5, 20, 20);
+            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [button addTarget:self action:@selector(clickAddFiles:) forControlEvents:UIControlEventTouchUpInside];
+            button.tag = i;
+            _lastView = button;
+        }
+        _descripeLabel = [CustomView customTitleUILableWithContentView:_addView title:nil];
+        _descripeLabel.font = [UIFont systemFontOfSize:12];
+        _descripeLabel.textAlignment = 2;
+        _descripeLabel.frame = CGRectMake(_lastView.right, 0, SCREEN_WIDTH-_lastView.right, 30);
+        _lastView = _addView;
+        
 //        _lastImageView = nil;
         _file_id_array = [NSMutableArray array];
         _photosArray = [NSMutableArray array];
@@ -68,11 +80,24 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _addButton  = [CustomView customButtonWithContentView:self image:nil title:@"+添加附件"];
-        _addButton.frame = CGRectMake(0, 5, SCREEN_WIDTH-16, 20);
-        _addButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_addButton addTarget:self action:@selector(clickAddFiles:) forControlEvents:UIControlEventTouchUpInside];
-        _lastView = _addButton;
+        NSArray *picArray = @[@"photo1",@"pic",@"file"];
+        _addView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-16, 30)];
+        [self addSubview:_addView];
+        for (int i = 0; i < picArray.count; i++) {
+            UIButton* button  = [CustomView customButtonWithContentView:_addView image:picArray[i] title:nil];
+            button.frame = CGRectMake(40*i, 5, 20, 20);
+            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [button addTarget:self action:@selector(clickAddFiles:) forControlEvents:UIControlEventTouchUpInside];
+            button.tag = i;
+            _lastView = button;
+        }
+        _descripeLabel = [CustomView customTitleUILableWithContentView:_addView title:nil];
+        _descripeLabel.font = [UIFont systemFontOfSize:12];
+//        [_descripeLabel sizeToFit];
+//        _descripeLabel.backgroundColor = [UIColor blueColor];
+        _descripeLabel.textAlignment = 2;
+        _descripeLabel.frame = CGRectMake(_lastView.right+5, 0, SCREEN_WIDTH-_lastView.right-5, 30);
+        _lastView = _addView;
 //        _lastImageView = nil;
         _file_id_array = [NSMutableArray array];
         _photosArray = [NSMutableArray array];
@@ -81,10 +106,40 @@
     return self;
 }
 
+-(void)clickAddFiles:(UIButton*)button
+{
+    
+    NSInteger buttonIndex = button.tag;
+    
+    switch (buttonIndex) {
+        case 0:
+            //拍照
+            [self takePhoto];
+            break;
+        case 1:
+            //从相册选择
+            [self localPhoto];
+            break;
+        case 2:
+            
+        { FileListViewController *guideVC = [[FileListViewController alloc]init];
+            guideVC.delegate = self;
+            guideVC.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:guideVC animated:YES];
+            self.viewController.navigationController.hidesBottomBarWhenPushed = YES;
+        }
+            
+            break;
+        default:
+            break;
+    }
+}
+
+
 -(CGFloat)setMoreFilesViewWithArray:(NSArray*)filesArray
 {
    [self removeAllSubviews];
-    [self addSubview:_addButton];
+    [self addSubview:self.addView];
     NSArray *fileArray = [LocalFilesModel objectArrayWithKeyValuesArray:filesArray];
     for (int i = 0; i < fileArray.count; i++) {
         LocalFilesModel *fileModel = fileArray[i];
@@ -138,43 +193,6 @@
 }
 
 
--(void)clickAddFiles:(UIButton*)button
-{
-    UIActionSheet *myActionSheet = [[UIActionSheet alloc]
-                                    initWithTitle:nil
-                                    delegate:self
-                                    cancelButtonTitle:@"取消"
-                                    destructiveButtonTitle:nil
-                                    otherButtonTitles: @"从相册选择",@"拍照",@"本地文件",nil];
-    [myActionSheet showInView:self.viewController.view];
-}
-
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            //从相册选择
-            [self localPhoto];
-            break;
-        case 1:
-            //拍照
-            [self takePhoto];
-            break;
-        case 2:
-            
-        { FileListViewController *guideVC = [[FileListViewController alloc]init];
-            guideVC.delegate = self;
-            guideVC.hidesBottomBarWhenPushed = YES;
-            [self.viewController.navigationController pushViewController:guideVC animated:YES];
-            self.viewController.navigationController.hidesBottomBarWhenPushed = YES;
-        }
-            
-            break;
-        default:
-            break;
-    }
-}
-
 -(void)chooseFiles:(NSMutableArray *)filesArray
 {
     for (int i = 0; i < filesArray.count; i ++) {
@@ -201,7 +219,7 @@
     [self.file_id_array removeAllObjects];
     [self.fileViewArray makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.fileViewArray removeObject:fileView];
-    _lastView = self.addButton;
+    _lastView = self.addView;
     for (int i = 0; i < self.fileViewArray.count; i ++) {
         FilesView *filseView = self.fileViewArray[i];
         CGRect fileFrame = filseView.frame;

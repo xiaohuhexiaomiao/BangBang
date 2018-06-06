@@ -676,7 +676,7 @@
         make.height.mas_equalTo(30);
     }];
     [_moreFilesView addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    [_moreFilesView.addButton setTitle:@"上传付款截图" forState:UIControlStateNormal];
+    _moreFilesView.descripeLabel.text = @"上传付款截图";
     
     
     _submitButton = [CustomView customButtonWithContentView:_bgScrollView image:nil title:@"去付款"];

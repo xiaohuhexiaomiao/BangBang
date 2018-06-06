@@ -46,7 +46,7 @@
     }];
     [_setTableview.mj_header beginRefreshing];
     
-    self.typeArray = @[@"1",@"3",@"7"];
+    self.typeArray = @[@"1",@"3",@"7",@"5",@"6",@"11"];
     
 }
 
@@ -88,7 +88,7 @@
     bookVC.companyid = self.compony_id;
     bookVC.isSelect = YES;
     bookVC.setType = [self.typeArray[selectedTag] integerValue];
-    bookVC.is_set_receipt = YES;
+    bookVC.operation_type = 2;
     bookVC.areadySelectArray = [self.personDict objectForKey:self.typeArray[selectedTag]];
     bookVC.delegate = self;
     bookVC.loadDataType = 2;
@@ -112,7 +112,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return self.typeArray.count;
 }
 
 
@@ -168,7 +168,7 @@
     button.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     button.tag = section;
     [button addTarget:self action:@selector(addPersonToPostion:) forControlEvents:UIControlEventTouchUpInside];
-    NSArray *titleArray = @[@"合同评审表",@"请购单",@"请款单"];
+    NSArray *titleArray = @[@"合同评审表",@"请购单",@"请款单",@"印章申请",@"呈批件",@"报销单"];
     UILabel *label = [CustomView customTitleUILableWithContentView:view title:titleArray[section]];
     label.frame = CGRectMake(8, 8, SCREEN_WIDTH-70, 20);
     label.font = [UIFont systemFontOfSize:14];

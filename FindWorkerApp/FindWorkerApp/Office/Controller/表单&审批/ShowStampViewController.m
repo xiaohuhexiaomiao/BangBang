@@ -189,9 +189,9 @@
             if (!self.is_aready_approval) {
                 self.dealView.approvalID = self.approvalID;
                 self.dealView.participation_id = self.participation_id;
+                self.dealView.personal_id = self.personal_id;
                 self.dealView.company_ID = self.companyID;
             }
-            
             NSMutableArray *array = [NSMutableArray array];
             for (NSDictionary *dict in resultModel.list) {
                 [array addObject:dict[@"name"]];
@@ -224,9 +224,11 @@
             }
             self.participation_id = resultModel.participation_id;
             
-            self.dealView.is_sepcial = self.is_sepcial;
-            self.dealView.canApproval = resultModel.can_approval;
-            [self.dealView setApprovalMenueView];
+            if (!self.is_cashier) {
+                self.dealView.is_sepcial = self.is_sepcial;
+                self.dealView.canApproval = resultModel.can_approval;
+                [self.dealView setApprovalMenueView];;
+            }
         }else{
             [MBProgressHUD showError:dict[@"message"] toView:self.view];
         }
@@ -293,8 +295,13 @@
     
     if (!self.is_aready_approval) {
         _dealView = [[DealWithApprovalView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-113, SCREEN_WIDTH, 40)];
-    
+        _dealView.is_cashier = self.is_cashier;
         [self.view addSubview:_dealView];
+        if (self.is_cashier) {
+            _dealView.canApproval = YES;
+            [_dealView setApprovalMenueView];
+        }
+        
     }
 }
 

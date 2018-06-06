@@ -29,7 +29,7 @@
     AdressBookViewController *logVC = [[AdressBookViewController alloc]init];
     logVC.navigationController.navigationBarHidden = NO;
     logVC.companyid = self.companyID;
-    logVC.isSelectedManager = YES;
+    logVC.is_single_selected = YES;
     logVC.delegate = self;
     logVC.loadDataType = 2;
     UIViewController *resultVC = [self topViewController];

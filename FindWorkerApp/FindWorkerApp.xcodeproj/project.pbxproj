@@ -465,6 +465,7 @@
 		8452F3F41EF0C80D005292B4 /* PersonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452F3F31EF0C80D005292B4 /* PersonCollectionViewCell.m */; };
 		8452F3F71EF0E530005292B4 /* PerssonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452F3F61EF0E530005292B4 /* PerssonalTableViewCell.m */; };
 		8452F3FA1EF12069005292B4 /* AdressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452F3F91EF12069005292B4 /* AdressBookViewController.m */; };
+		845323C720C510CC00ED561F /* DealWithWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845323C620C510CC00ED561F /* DealWithWebViewController.m */; };
 		84580B611F7268470017E1C3 /* PositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84580B601F7268470017E1C3 /* PositionModel.m */; };
 		845819791F678AD000C54CC3 /* SelectedDepartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845819781F678AD000C54CC3 /* SelectedDepartCell.m */; };
 		845E23CF1EF4D938005C9073 /* ReviewListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E23CE1EF4D938005C9073 /* ReviewListModel.m */; };
@@ -1642,6 +1643,8 @@
 		8452F3F61EF0E530005292B4 /* PerssonalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerssonalTableViewCell.m; sourceTree = "<group>"; };
 		8452F3F81EF12069005292B4 /* AdressBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdressBookViewController.h; sourceTree = "<group>"; };
 		8452F3F91EF12069005292B4 /* AdressBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdressBookViewController.m; sourceTree = "<group>"; };
+		845323C520C510CC00ED561F /* DealWithWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealWithWebViewController.h; sourceTree = "<group>"; };
+		845323C620C510CC00ED561F /* DealWithWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealWithWebViewController.m; sourceTree = "<group>"; };
 		84580B5F1F7268470017E1C3 /* PositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionModel.h; sourceTree = "<group>"; };
 		84580B601F7268470017E1C3 /* PositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionModel.m; sourceTree = "<group>"; };
 		845819771F678AD000C54CC3 /* SelectedDepartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedDepartCell.h; sourceTree = "<group>"; };
@@ -3970,6 +3973,8 @@
 				846FA9161FFF0992004503BB /* ExpenseAccountViewController.m */,
 				846FA9651FFF72FC004503BB /* ShowExpenseAccountViewController.h */,
 				846FA9661FFF72FC004503BB /* ShowExpenseAccountViewController.m */,
+				845323C520C510CC00ED561F /* DealWithWebViewController.h */,
+				845323C620C510CC00ED561F /* DealWithWebViewController.m */,
 				842518B320BBF79B005FC929 /* UploadPhotoAndTextViewController.h */,
 				842518B420BBF79B005FC929 /* UploadPhotoAndTextViewController.m */,
 				843F4FEC1FB443D400E4B063 /* CopyViewController.h */,
@@ -5576,6 +5581,7 @@
 				84DD2B371E14FA9F00C0DE74 /* MJType.m in Sources */,
 				8237B4651DFAA69900B4F34D /* SWMyPublishDetailInfo.m in Sources */,
 				8429A36720A43F65005ACA7A /* RCMAddGroupMemberViewController.m in Sources */,
+				845323C720C510CC00ED561F /* DealWithWebViewController.m in Sources */,
 				84C6F03A2068C7EF00194D00 /* AcceptHistoryViewController.m in Sources */,
 				8231FB691DF990CF00DB5416 /* SWInviteCmd.m in Sources */,
 				829EDEF31E0BCBE300274805 /* SWWithdraw.m in Sources */,
@@ -5890,8 +5896,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xiaoyan Liu (NVJ566EZU3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xiaoyan Liu (NVJ566EZU3)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5939,8 +5945,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xiaoyan Liu (NVJ566EZU3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xiaoyan Liu (NVJ566EZU3)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -6027,7 +6033,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xisheng.Findworkers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94de99ce-8bea-4a21-b48e-747e9f1a8707";
+				PROVISIONING_PROFILE = "a4d465ac-3237-4065-995b-26b3ebc10529";
 				PROVISIONING_PROFILE_SPECIFIER = FindWorkersDistribution;
 			};
 			name = Debug;
@@ -6098,7 +6104,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xisheng.Findworkers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94de99ce-8bea-4a21-b48e-747e9f1a8707";
+				PROVISIONING_PROFILE = "a4d465ac-3237-4065-995b-26b3ebc10529";
 				PROVISIONING_PROFILE_SPECIFIER = FindWorkersDistribution;
 			};
 			name = Release;

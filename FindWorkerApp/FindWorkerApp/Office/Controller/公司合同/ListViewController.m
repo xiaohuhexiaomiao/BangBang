@@ -31,7 +31,7 @@
     if (self.list_type == 1) {
         [self setupBackw];
         [self setupTitleWithString:@"合同模板" withColor:[UIColor whiteColor]];
-    }else if(self.list_type == 2){
+    }else if(self.list_type == 2 || self.list_type == 4){
         [self setupBackw];
         [self setupTitleWithString:@"报验单模板" withColor:[UIColor whiteColor]];
     }else if(self.list_type == 3){
@@ -111,13 +111,13 @@
             [MBProgressHUD showError:error toView:self.view];
         }];
         
-    }else if (self.list_type == 2){
+    }else if (self.list_type == 2 ){
         
         [[NetworkSingletion sharedManager]getSingleInspectionList:nil onSucceed:^(NSDictionary *dict) {
             [self.listTabelview.mj_header endRefreshing];
             [self.listTabelview.mj_footer endRefreshing];
             
-            NSLog(@"companyre %@",dict);
+//            NSLog(@"companyre %@",dict);
             if ([dict[@"code"] integerValue]==0) {
                 NSArray *array = [InspectionModel objectArrayWithKeyValuesArray:dict[@"data"]];
                 [self.dataArray addObjectsFromArray:array];
@@ -139,6 +139,25 @@
             //             NSLog(@"companyre %@",dict);
             if ([dict[@"code"] integerValue]==0) {
                 NSArray *array = [SeelementModel objectArrayWithKeyValuesArray:dict[@"data"]];
+                [self.dataArray addObjectsFromArray:array];
+                [self.listTabelview reloadData];
+            }else{
+                [MBProgressHUD showError:dict[@"message"] toView:self.view];
+            }
+        } OnError:^(NSString *error) {
+            [self.listTabelview.mj_header endRefreshing];
+            [self.listTabelview.mj_footer endRefreshing];
+            [MBProgressHUD showError:error toView:self.view];
+        }];
+    }else if ( self.list_type == 4){
+        
+        [[NetworkSingletion sharedManager]getCompanyInspectionList:nil onSucceed:^(NSDictionary *dict) {
+            [self.listTabelview.mj_header endRefreshing];
+            [self.listTabelview.mj_footer endRefreshing];
+            
+            //            NSLog(@"companyre %@",dict);
+            if ([dict[@"code"] integerValue]==0) {
+                NSArray *array = [InspectionModel objectArrayWithKeyValuesArray:dict[@"data"]];
                 [self.dataArray addObjectsFromArray:array];
                 [self.listTabelview reloadData];
             }else{
@@ -174,7 +193,7 @@
         if (self.dataArray.count > 0) {
             cell.textLabel.text = [self.dataArray[indexPath.row] objectForKey:@"contract_name"];
         }
-    }else if (self.list_type == 2){
+    }else if (self.list_type == 2|| self.list_type == 4){
         if (self.dataArray.count > 0) {
             InspectionModel *model = self.dataArray[indexPath.row];
             cell.textLabel.text = model.inspection_name;
@@ -245,6 +264,18 @@
             web.editType = 3;
             web.form_Type_ID = [model.settlement_type_id integerValue];
             web.contractID = self.contract_id;
+            web.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:web animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+        }else if (self.list_type == 4) {
+            InspectionModel *model = self.dataArray[indexPath.row];
+            EditWebViewController *web = [[EditWebViewController alloc]init];
+            if (![NSString isBlankString:model.inspection_name]) {
+                web.titleString = model.inspection_name;
+            }
+            web.editType = 11;
+            web.company_id = self.company_id;
+            web.form_Type_ID = [model.inspection_type_id integerValue];
             web.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:web animated:YES];
             self.hidesBottomBarWhenPushed = YES;

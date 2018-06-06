@@ -13,6 +13,7 @@
 #import "PersonelModel.h"
 
 #import "PersonDetailViewController.h"
+#import "ListViewController.h"
 
 @interface AdressBookViewController ()<UITableViewDelegate,UITableViewDataSource,DepartmentCellDelegate>
 
@@ -37,13 +38,16 @@
     if (self.isSelect == YES) {
         [self setupNextWithString:@"确定" withColor:TOP_GREEN];
     }
-    if (self.isAddManager) {
+    if (self.operation_type == 1) {
         [self setupTitleWithString:@"添加管理员" withColor:[UIColor whiteColor]];
-    }
-    if (self.is_set_receipt) {
+    }else if (self.operation_type == 2){
         [self setupTitleWithString:@"设置回执人员" withColor:[UIColor whiteColor]];
-         [self setupNextWithString:@"保存" withColor:TOP_GREEN];
+        [self setupNextWithString:@"保存" withColor:TOP_GREEN];
+    }else if (self.operation_type == 3){
+        [self setupTitleWithString:@"选择审批人员" withColor:[UIColor whiteColor]];
+        [self setupNextWithString:@"提交" withColor:TOP_GREEN];
     }
+
     if (self.loadDataType == 3) {
         [self setupTitleWithString:@"抄送范围" withColor:[UIColor whiteColor]];
     }
@@ -180,7 +184,7 @@
 -(void)onNext
 {
 //    NSLog(@"tag %li",self.selectedArray.count);
-    if (self.isAddManager) {
+    if (self.operation_type == 1) {
         NSMutableArray *personnelArray = [NSMutableArray array];
         for (NSDictionary *dict in self.selectedArray) {
             [personnelArray addObject:dict[@"personnel_id"]];
@@ -189,7 +193,7 @@
                                     @"personnel_id":[NSString dictionaryToJson:personnelArray],
                                     @"company_id":self.companyid};
         [[NetworkSingletion sharedManager]addManager:paramDict onSucceed:^(NSDictionary *dict) {
-//            NSLog(@"addmanage %@",dict);
+            //            NSLog(@"addmanage %@",dict);
             if ([dict[@"code"] integerValue]==0) {
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
@@ -198,19 +202,50 @@
         } OnError:^(NSString *error) {
             [MBProgressHUD showError:error toView:self.view];
         }];
+    }else if (self.operation_type == 2){
+         [self saveReceiptPerson];
+    }else if (self.operation_type == 3){
+        [self uploadForm];
     }else{
-        if (self.is_set_receipt) {
-            [self saveReceiptPerson];
+        if (self.selectedArray.count > 0) {
+            [self.delegate saveAdressBook:self.selectedArray];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
-            if (self.selectedArray.count > 0) {
-                [self.delegate saveAdressBook:self.selectedArray];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [MBProgressHUD showError:@"请选择人员" toView:self.view];
-            }
+            [MBProgressHUD showError:@"请选择人员" toView:self.view];
         }
     }
-    
+}
+
+-(void)uploadForm
+{
+    if (self.selectedArray.count > 0) {
+        NSMutableArray *array = [NSMutableArray array];
+        [self.selectedArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dict = (NSDictionary*)obj;
+            [array addObject:dict[@"uid"]];
+        }];
+        NSDictionary *paramDict = @{@"approval_persons":[NSString dictionaryToJson:array],
+                                    @"company_id":self.companyid,
+                                    @"inspection_type_id":@(self.form_type),
+                                    @"content":self.result_json_string};
+        [[NetworkSingletion sharedManager]uploadInspection:paramDict onSucceed:^(NSDictionary *dict) {
+            //            NSLog(@"****%@",dict);
+            if ([dict[@"code"] integerValue]==0) {
+                for (ListViewController *temp in self.navigationController.viewControllers) {
+                    if ([temp isKindOfClass:[ListViewController class]]) {
+                        [self.navigationController popToViewController:temp animated:YES];
+                    }
+                }
+            }else{
+                [MBProgressHUD showError:dict[@"message"] toView:self.view];
+            }
+        } OnError:^(NSString *error) {
+            
+        }];
+        
+    }else{
+        [MBProgressHUD showError:@"您还未选择审批人员" toView:self.view];
+    }
 }
 
 -(void)saveReceiptPerson
@@ -350,7 +385,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.indextArray.count > 0) {
-        if (self.isSelectedManager) {
+        if (self.is_single_selected) {
             NSString *key = self.indextArray[indexPath.section];
             NSArray *dataArr = self.dataDict[key];
             [self.delegate selectedPorjectManager:dataArr[indexPath.row]];

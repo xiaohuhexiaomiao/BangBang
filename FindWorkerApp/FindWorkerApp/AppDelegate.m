@@ -689,9 +689,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *musicPath = [[NSBundle mainBundle] pathForResource:@"slient" ofType:@"m4a"];
     NSURL *URLPath = [[NSURL alloc] initFileURLWithPath:musicPath];
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:URLPath error:nil];
-//    [_player prepareToPlay];
-//    _player.numberOfLoops = -1;
-//    [_player play];
+    [_player prepareToPlay];
+    _player.numberOfLoops = -1;
+    [_player play];
 
 }
 

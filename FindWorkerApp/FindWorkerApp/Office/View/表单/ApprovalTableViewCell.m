@@ -183,6 +183,8 @@
             self.typeLabel.text = @"合同评审表";
         }else if(reviewModel.type == 11){
             self.typeLabel.text = @"报销单";
+        }else if(reviewModel.type == 12){
+            self.typeLabel.text = @"验收单";
         }
         
     }else{
@@ -250,6 +252,8 @@
             self.typeLabel.text = @"合同评审表";
         }else if(reviewModel.type == 11){
             self.typeLabel.text = @"报销单";
+        }else if(reviewModel.type == 12){
+            self.typeLabel.text = @"验收单";
         }
         
     }else{
@@ -366,6 +370,8 @@
         self.typeLabel.text = @"请购单（其他）";
     }else if(reviewModel.type == 111){
         self.typeLabel.text = @"合同评审表";
+    }else if(reviewModel.type == 12){
+        self.typeLabel.text = @"验收单";
     }
     self.contentNameLabel.text = @"标题：";
     self.contentLable.text = reviewModel.title;

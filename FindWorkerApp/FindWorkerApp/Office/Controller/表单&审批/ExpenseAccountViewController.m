@@ -101,7 +101,7 @@
 -(void)clickProjectManager
 {
     AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
-    bookVC.isSelectedManager = YES;
+    bookVC.is_single_selected = YES;
     bookVC.companyid = self.companyID;
     bookVC.delegate = self;
     bookVC.loadDataType = 2;

@@ -20,7 +20,7 @@
 
 @property (nonatomic , copy) NSString *contentJson; //内容json；
 
-@property(nonatomic ,assign)NSInteger signType;//0 公司合同 1 个人合同  2 报验单签名 3 结算单签名 4 修改个人合同
+@property(nonatomic ,assign)NSInteger signType;//0 公司合同 1 个人合同  2 报验单签名 3 结算单签名 4 修改个人合同 5 公司 处理报验单
 
 @property(nonatomic ,copy)NSString *applyid;//0 公司合同 1 个人合同  2 报验单签名 3 结算单签名 4 修改个人合同
 

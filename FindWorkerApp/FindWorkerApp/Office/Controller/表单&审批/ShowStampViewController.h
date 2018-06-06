@@ -25,6 +25,10 @@
 
 @property(nonatomic ,assign)BOOL is_reply;// YES  可回复  NO 不可回复
 
+@property(nonatomic ,assign)BOOL is_cashier;//YES 表单回执 NO 处理审批
+
+@property(nonatomic , copy)NSString *personal_id;
+
 @property(nonatomic ,copy)NSString *approvalID;
 
 @property(nonatomic ,assign)NSInteger form_type;//0 公司审批 1 个人审批

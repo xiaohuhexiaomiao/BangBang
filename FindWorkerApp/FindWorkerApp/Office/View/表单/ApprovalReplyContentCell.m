@@ -32,11 +32,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _replyLabel = [CustomView customRTLableWithContentView:self title:nil];
-        _replyLabel.frame = CGRectMake(48, 0, SCREEN_WIDTH-56, 30);
+        _replyLabel.frame = CGRectMake(48, 5, SCREEN_WIDTH-56, 30);
         _replyLabel.font = [UIFont systemFontOfSize:12];
         [self addSubview:_replyLabel];
         
-        _showFielsView = [[ShowFilesView alloc]initWithFrame:CGRectMake(0, _replyLabel.bottom, SCREEN_WIDTH-16, 10)];
+        _showFielsView = [[ShowFilesView alloc]initWithFrame:CGRectMake(_replyLabel.left, _replyLabel.bottom, SCREEN_WIDTH-_replyLabel.left, 10)];
         _showFielsView.hidden = YES;
         [self addSubview:_showFielsView];
       
@@ -72,20 +72,20 @@
     CGRect frame = self.replyLabel.frame;
     frame.size = optimumSize;
     self.replyLabel.frame = frame;
-
-    self.timeLabel.top = self.replyLabel.bottom;
-    self.replyButton.top = self.timeLabel.top;
-    self.cellHeight = 20+ optimumSize.height;
-    
     if (self.replyModel.many_enclosure.count > 0) {
         self.showFielsView.hidden = NO;
         CGFloat fileHeight = [self.showFielsView setShowFilesViewWithArray:self.replyModel.many_enclosure];
         CGRect frame = self.showFielsView.frame;
         frame.size.height = fileHeight;
         self.showFielsView.frame = frame;
+        self.showFielsView.top = self.replyLabel.bottom;
         self.timeLabel.top = self.showFielsView.bottom;
         self.replyButton.top = self.timeLabel.top;
-        self.cellHeight =  20+ optimumSize.height+fileHeight;
+        self.cellHeight =  30+ optimumSize.height+fileHeight;
+    }else{
+        self.timeLabel.top = self.replyLabel.bottom;
+        self.replyButton.top = self.timeLabel.top;
+        self.cellHeight = 30+ optimumSize.height;
     }
 }
 

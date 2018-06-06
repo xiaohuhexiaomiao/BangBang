@@ -10,9 +10,13 @@
 
 @interface DealWithApprovalView : UIView
 
+@property(nonatomic ,strong)UIButton *photoBtn;
+
 @property(nonatomic ,assign)BOOL is_sepcial;//YES 有特权
 
 @property(nonatomic ,assign)BOOL is_cashier;//YES c财务回执
+
+@property(nonatomic , assign) BOOL is_sign;// 是否需签字
 
 @property(nonatomic , assign) NSInteger canApproval;
 

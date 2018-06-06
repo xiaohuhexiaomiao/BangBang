@@ -10,7 +10,7 @@
 
 @interface MoreFilesView : UIView
 
-@property(nonatomic , strong) UIButton *addButton;
+@property(nonatomic , strong) UILabel *descripeLabel;
 
 @property(nonatomic ,strong)NSMutableArray *file_id_array;
 

@@ -170,7 +170,7 @@
                                         @"p":@(page),
                                         @"each":@"10",
                                         @"approval_persona_type":@(self.type)};
-            [[NetworkSingletion sharedManager]getContractReviewList:paramDict onSucceed:^(NSDictionary *dict) {
+            [[NetworkSingletion sharedManager]getPersonalApprovalList:paramDict onSucceed:^(NSDictionary *dict) {
                 //                            NSLog(@"**list*%@",dict);
                 [self.listTableview.mj_header endRefreshing];
                 [self.listTableview.mj_footer endRefreshing];

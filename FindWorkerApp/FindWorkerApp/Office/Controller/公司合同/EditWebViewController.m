@@ -12,6 +12,7 @@
 #import "CXZ.h"
 
 #import "SignNameViewController.h"
+#import "AdressBookViewController.h"
 
 @protocol JSObjcDelegate <JSExport>
 
@@ -76,6 +77,12 @@
         encodedString = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/look_inspection?type=1&operation=2&form_id=%li",API_HOST,self.formid];
     }else if (self.editType == 10){
         encodedString = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/look_inspection?type=2&operation=2&form_id=%li",API_HOST,self.formid];
+    }else if (self.editType == 11){
+        encodedString = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/look_inspection_company?type_id=%li",API_HOST,self.form_Type_ID];
+    }else if (self.editType == 12){
+        encodedString = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/look_inspection_company?type_id=%li&form_id=%li",API_HOST,self.self.form_Type_ID,self.formid];
+    }else if (self.editType == 13){
+        encodedString = [NSString stringWithFormat:@"%@/index.php/Mobile/skey/look_inspection_company?approval_id=%li",API_HOST,self.formid];
     }
     NSURL *url = [[NSURL alloc]initWithString:encodedString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -94,6 +101,8 @@
 //        [self setupNextWithString:@"下一步" withColor:[UIColor whiteColor]];
     }else if(self.editType == 1){
         [self setupNextWithString:@"下一步" withColor:[UIColor whiteColor]];
+    }else if(self.editType == 11){
+        [self setupNextWithString:@"发送" withColor:[UIColor whiteColor]];
     }else{
         [self setupNextWithString:@"提交" withColor:[UIColor whiteColor]];
     }
@@ -236,6 +245,18 @@
             } OnError:^(NSString *error) {
                 [MBProgressHUD showError:error toView:self.view];
             }];
+        }else if (self.editType == 11||self.editType ==  12){
+            AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
+            bookVC.companyid = self.company_id;
+            bookVC.isSelect = YES;
+            bookVC.operation_type = 3;
+            bookVC.loadDataType = 2;
+            bookVC.form_type = self.form_Type_ID;
+            bookVC.result_json_string = result;
+            bookVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:bookVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+            
         }
 
     }else{

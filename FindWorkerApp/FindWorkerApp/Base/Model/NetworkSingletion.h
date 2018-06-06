@@ -1530,7 +1530,19 @@ typedef void(^FailureBlock)(NSString *error);
                   OnError:(FailureBlock)zgrError;
 
 
+/**
+ 公司审批- 验收单
+ */
+-(void)uploadInspection:(NSDictionary*)paramDict
+                   onSucceed:(SuccessedBlock)succeedBlock
+                     OnError:(FailureBlock)zgrError;
 
+/**
+ 公司审批- 验收单列表
+ */
+-(void)getCompanyInspectionList:(NSDictionary*)paramDict
+              onSucceed:(SuccessedBlock)succeedBlock
+                OnError:(FailureBlock)zgrError;
 
 
 @end

@@ -2151,6 +2151,25 @@
  [self requestUrl:@"/index.php/Mobile/Approval/add_chengpi_supply" paramDic:paramDict onSucceed:succeedBlock OnError:zgrError];
 }
 
+/**
+ 公司审批- 验收单
+ */
+-(void)uploadInspection:(NSDictionary*)paramDict
+              onSucceed:(SuccessedBlock)succeedBlock
+                OnError:(FailureBlock)zgrError
+{
+  [self requestUrl:@"/index.php/Mobile/approval/add_inspection" paramDic:paramDict onSucceed:succeedBlock OnError:zgrError];
+}
+
+/**
+ 公司审批- 验收单列表
+ */
+-(void)getCompanyInspectionList:(NSDictionary*)paramDict
+                      onSucceed:(SuccessedBlock)succeedBlock
+                        OnError:(FailureBlock)zgrError
+{
+ [self requestUrl:@"/index.php/Mobile/approval/inspection_list" paramDic:paramDict onSucceed:succeedBlock OnError:zgrError];
+}
 
 
 #pragma mark

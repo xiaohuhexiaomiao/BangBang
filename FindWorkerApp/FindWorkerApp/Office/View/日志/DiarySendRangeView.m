@@ -76,7 +76,7 @@
     AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
     bookVC.companyid = self.company_id;
     bookVC.delegate = self;
-    bookVC.isSelectedManager = YES;
+    bookVC.is_single_selected = YES;
     bookVC.loadDataType = 2;
     [self.viewController.navigationController pushViewController:bookVC animated:YES];
     

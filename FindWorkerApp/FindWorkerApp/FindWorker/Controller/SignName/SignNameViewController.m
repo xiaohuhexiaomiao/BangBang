@@ -70,7 +70,7 @@
     [okBtn setTitle:@"确认" forState:UIControlStateNormal];
     [okBtn addTarget:self action:@selector(clickConfirmButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:okBtn];
-    
+    [SVProgressHUD dismiss];
     
 }
 
@@ -89,14 +89,14 @@
             NSString *imageToken = [dict objectForKey:@"data"];
             [self uploadImageToQNFilePath:@[signImage] token:@[imageToken]];
         }else{
-            [SVProgressHUD dismiss];
+          
             [MBProgressHUD showError:dict[@"message"] toView:self.view];
             
             return ;
         }
         
     } OnError:^(NSString *error) {
-        [SVProgressHUD dismiss];
+      
         [MBProgressHUD showError:error toView:self.view];
     }];
     
@@ -182,6 +182,29 @@
     }];
 }
 
+-(void)dealWithCompanyCheckForm:(NSString*)signStr
+{
+    NSDictionary *dict = @{@"uid":[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"],
+                           @"participation_id":self.workID,
+                           @"is_agree":@"1",
+                           @"opinion":self.contentJson,
+                           @"approval_id":self.applyid,
+                           @"sign_picture":signStr
+                           };
+
+    [[NetworkSingletion sharedManager]dealWithReview:dict onSucceed:^(NSDictionary *dict) {
+        
+        if ([dict[@"code"] integerValue] == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [MBProgressHUD showError:dict[@"message"] toView:self.view];
+        }
+    } OnError:^(NSString *error) {
+      
+       
+    }];
+}
+
 #pragma mark 七牛相关
 - (void)uploadImageToQNFilePath:(NSArray *)imageArray token:(NSArray*)imageTokenArray{
     
@@ -213,7 +236,8 @@
         });
         
     }
-    [SVProgressHUD dismiss];
+   
+    
     dispatch_group_notify(group, queue, ^{
         //所有请求返回数据后执行
         if (self.signType == 0) {
@@ -226,6 +250,9 @@
             [self dealWithSettlmentWithSign:hashArray[0]];
         }else if(self.signType == 4){
             [self modifyPersonalContractWithSign:hashArray[0]];
+        }else if (self.signType == 5)
+        {
+            [self dealWithCompanyCheckForm:hashArray[0]];
         }
     });
     

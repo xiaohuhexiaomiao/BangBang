@@ -26,6 +26,7 @@
 #import "AddColleagueViewController.h"
 #import "WorkRemindViewController.h"
 #import "ExpenseAccountViewController.h"
+#import "ListViewController.h"
 
 #import "JXPopoverView.h"
 
@@ -238,20 +239,20 @@
     if (self.isEmployee == YES) {
         if (self.isManager) {
             if (self.isCashier) {
-                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"设置"],@[@"审批处理",@"表单回执",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单"]];
+                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"设置"],@[@"审批处理",@"表单回执",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单",@"验收单"]];
             }else{
-                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"设置"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单"]];
+                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"设置"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单",@"验收单"]];
             }
         }else{
             if (self.isCashier) {
-                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"表单回执",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单"]];
+                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"表单回执",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单",@"验收单"]];
             }else{
-                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单"]];
+                self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单",@"验收单"]];
             }
             
         }
     }else{
-        self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单"]];
+        self.listArray = @[@[@"创建公司",@"申请加入公司",@"邀请同事"],@[@"审批处理",@"工作记录",@"消息提醒",@"公司合同",@"公司合同",@"通讯录"],@[@"合同评审单",@"请款单",@"请购单",@"印章申请",@"呈批件",@"报销单",@"验收单"]];
         
     }
     [self.officeTableView reloadData];
@@ -429,6 +430,12 @@
             expenseVC.companyID = self.companyID;
             expenseVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:expenseVC animated:YES];
+        }else if ([title isEqualToString:@"验收单"]){
+            ListViewController *listVC = [[ListViewController alloc]init];
+            listVC.list_type = 4;
+            listVC.company_id = self.companyID;
+            listVC.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:listVC animated:YES];
         }
         
     }

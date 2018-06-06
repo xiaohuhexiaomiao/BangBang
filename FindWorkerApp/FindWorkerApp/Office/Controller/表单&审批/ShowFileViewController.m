@@ -206,9 +206,12 @@
             }
             self.participation_id = resultModel.participation_id;
             
-            self.dealView.is_sepcial = self.is_sepcial;
-            self.dealView.canApproval = resultModel.can_approval;
-            [self.dealView setApprovalMenueView];
+            if (!self.is_cashier) {
+                self.dealView.is_sepcial = self.is_sepcial;
+                self.dealView.canApproval = resultModel.can_approval;
+                [self.dealView setApprovalMenueView];
+            }
+            
         }else{
             [MBProgressHUD showError:dict[@"message"] toView:self.view];
         }
@@ -593,7 +596,13 @@
     
     if (!self.is_aready_approval) {
         _dealView = [[DealWithApprovalView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-113, SCREEN_WIDTH, 40)];
+        _dealView.is_cashier = self.is_cashier;
         [self.view addSubview:_dealView];
+        if (self.is_cashier) {
+            _dealView.canApproval = YES;
+            [_dealView setApprovalMenueView];
+        }
+        
     }
 //    NSLog(@"****%lf",STATUS_BAR_HEIGHT);
  

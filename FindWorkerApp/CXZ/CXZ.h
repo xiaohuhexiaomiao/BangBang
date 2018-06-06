@@ -196,20 +196,15 @@
 
 
 // 上线
-//#define RONGYUN_KEY @"qf3d5gbjqeg0h"//融云
-//#define API_HOST @"https://bbsf.hzxb.net"// 服务器接口根地址
-//#define IMAGE_HOST @"http://bbsf-file.hzxb.net/"   //查看图片-七牛-上线
+#define RONGYUN_KEY @"qf3d5gbjqeg0h"//融云
+#define API_HOST @"https://bbsf.hzxb.net"// 服务器接口根地址
+#define IMAGE_HOST @"http://bbsf-file.hzxb.net/"   //查看图片-七牛-上线
 
 //测试
-#define RONGYUN_KEY @"kj7swf8okyfh2"//融云
-#define API_HOST @"http://192.168.1.250:80/fw"//测试服
-#define IMAGE_HOST @"http://bbsf-test-file.hzxb.net/"//查看图片-七牛-测试服
+//#define RONGYUN_KEY @"kj7swf8okyfh2"//融云
+//#define API_HOST @"http://192.168.1.250:80/fw"//测试服
+//#define IMAGE_HOST @"http://bbsf-test-file.hzxb.net/"//查看图片-七牛-测试服
 
-
-// 上传文件接口
-//#define UPLOAD_HOST @"http://115.29.203.21:10006/index.php/Mobile/App/upload"
-//#define UPLOAD_HOST @"http://118.178.94.235/index.php/Mobile/App/upload"
-//#define UPLOAD_HOST @"http://bbsf.hzxb.net/index.php/Mobile/App/upload"
 
 #define IMAGE_URL(substr) [NSString stringWithFormat:@"%@%@", IMAGE_HOST, substr
 //#define RES_URL(substr) [NSString stringWithFormat:@"http://115.29.203.21:10006/index.php%@", substr]

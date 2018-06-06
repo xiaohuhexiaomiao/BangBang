@@ -172,7 +172,7 @@
 -(void)isPayForWorker
 {
     [[NetworkSingletion sharedManager]isPayForTheWorker:@{@"target_uid":self.uid} onSucceed:^(NSDictionary *dict) {
-                NSLog(@"**uir *%@",dict);
+//                NSLog(@"**uir *%@",dict);
         if ([dict[@"code"] integerValue]==0) {
             NSInteger status = [[dict[@"data"] objectForKey:@"status"] integerValue];
             if (status == 1) {

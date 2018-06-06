@@ -101,6 +101,7 @@
     [self config];
     purchaseTag = 1000;
     self.projectManagerStr = @"";
+    self.totalMoney = 0.0;
     [self setupNextWithString:@"去复制" withColor:[UIColor whiteColor]];
 }
 
@@ -180,7 +181,7 @@
 -(void)clickProjectManager
 {
     AdressBookViewController *bookVC = [[AdressBookViewController alloc]init];
-    bookVC.isSelectedManager = YES;
+    bookVC.is_single_selected = YES;
     bookVC.companyid = self.companyID;
     bookVC.delegate = self;
     bookVC.loadDataType = 2;
@@ -762,7 +763,7 @@
 
 -(void)uploadData
 {
-    
+    NSLog(@"***%lf yuan",self.totalMoney);
     NSMutableArray *array = [NSMutableArray array];
     for (int i = 0; i < self.purchaseViewArray.count; i++) {
         PurchaseView *purchaseView = (PurchaseView*)self.purchaseViewArray[i];
@@ -807,7 +808,7 @@
                                 @"arrival_time":self.timeTxt.text,
                                 @"consignee":self.receiverNameTxt.text,
                                 @"consignee_phone":self.recerverPhoneTxt.text,
-                                @"total":@(self.totalMoney),
+                                @"total":[NSString stringWithFormat:@"%.2lf",self.totalMoney],
                                 @"receive_address":self.recerverAddressTxtview.text,
                                 @"buy_person":self.buyNameTxt.text,
                                 @"buy_person_phone":self.buyPhoneTxt.text,
@@ -823,10 +824,10 @@
         [param setObject:content forKey:@"content"];
     }
     if (![NSString isBlankString:self.projectManagerStr]) {
-        [param setObject:self.projectManagerStr forKey:@"request_buy_department"];
+        [param setObject:self.projectManagerStr forKey:@"project_manager"];
     }
     if (![NSString isBlankString:self.departmentStr]) {
-        [param setObject:self.departmentStr forKey:@"project_manager"];
+        [param setObject:self.departmentStr forKey:@"request_buy_department"];
     }
     if (![NSString isBlankString:self.companyID]) {
         [param setObject:self.companyID forKey:@"company_id"];
@@ -873,6 +874,7 @@
                 [MBProgressHUD showError:dict[@"message"] toView:self.view];
             }
         } OnError:^(NSString *error) {
+//            NSLog(@"***%@",error);
             self.submitbButton.userInteractionEnabled = YES;
             [MBProgressHUD showError:error toView:self.view];
         }];

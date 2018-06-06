@@ -124,7 +124,7 @@
     if (self.resultModel.finance) {
        sectionCount += 1;
     }
-    if (self.resultModel.supply) {
+    if (self.resultModel.supply.count > 0) {
         sectionCount += 1;
     }
 
@@ -133,9 +133,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == self.resultModel.content.count || self.resultModel.content.count+1) {
+    if (section == self.resultModel.content.count ) {
         return 1;
     }
+    if (section == self.resultModel.content.count+1) {
+        return self.resultModel.supply.count;
+    }
+    
     ApprovalContentModel *model = [ApprovalContentModel objectWithKeyValues:self.resultModel.content[section]];
 //     NSLog(@"**sdsd*%li",model.replys.count);
     return 1+model.replys.count;
@@ -143,7 +147,7 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0 || indexPath.section == self.resultModel.content.count+1) {
         ApprovalContentCell *cell = (ApprovalContentCell*)[tableView dequeueReusableCellWithIdentifier:@"ApprovalContentCell"];
         if (!cell) {
             cell = [[ApprovalContentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApprovalContentCell"];
@@ -155,8 +159,9 @@
             [cell setCashierReplyContentWith:self.resultModel.finance];
         }else if (indexPath.section == self.resultModel.content.count+1) {
             cell.is_reply = NO;
-            [cell setApprovalProtocolWithDictionary:self.resultModel.supply];
-        }{
+            [cell setApprovalProtocolWithDictionary:self.resultModel.supply[indexPath.row]];
+        }else{
+            
             cell.is_reply = self.is_reply;
             [cell setApprovalContentWith:self.resultModel.content[indexPath.section]];
         }

@@ -915,7 +915,6 @@
             _dealView.canApproval = YES;
             [_dealView setApprovalMenueView];
         }
-        
     }
 }
 

@@ -35,7 +35,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _approvalLabel =[[UILabel alloc]initWithFrame:CGRectMake(8, 0, SCREEN_WIDTH-16, 20)];
+        _approvalLabel =[[UILabel alloc]initWithFrame:CGRectMake(8, 5, SCREEN_WIDTH-16, 20)];
         _approvalLabel.font = [UIFont systemFontOfSize:12];
         _approvalLabel.textColor = TITLECOLOR;
         [self  addSubview:_approvalLabel];
@@ -142,9 +142,9 @@
         } OnError:^(NSString *error) {
             
         }];
-       self.cellHeight =  self.replyLabel.height+80;
+       self.cellHeight =  self.replyLabel.height+90;
     }else{
-        self.cellHeight =  self.replyLabel.height+40;
+        self.cellHeight =  self.replyLabel.height+50;
     }
     
    
@@ -152,6 +152,11 @@
 
 -(void)setCashierReplyContentWith:(NSDictionary *)dict
 {
+    if (self.is_reply) {
+        self.replyButton.hidden = NO;
+    }else{
+        self.replyButton.hidden = YES;
+    }
     self.approvalLabel.text = [NSString stringWithFormat:@"回执人员：%@ ",dict[@"name"]];
     NSString *content = dict[@"receipt_content"];
     self.replyLabel.text = content;
@@ -205,25 +210,30 @@
         } OnError:^(NSString *error) {
             
         }];
-        self.cellHeight =  self.replyLabel.height+80;
+        self.cellHeight =  self.replyLabel.height+90;
     }else{
-        self.cellHeight =  self.replyLabel.height+40;
+        self.cellHeight =  self.replyLabel.height+50;
     }
 }
 
 -(void)setApprovalProtocolWithDictionary:(NSDictionary*)dict
 {
+    if (self.is_reply) {
+        self.replyButton.hidden = NO;
+    }else{
+        self.replyButton.hidden = YES;
+    }
     self.approvalLabel.text = [NSString stringWithFormat:@"呈批件协议：%@ ",dict[@"name"]];
     NSString *content = dict[@"remarks"];
-    self.replyLabel.text = content;
     if (![NSString isBlankString:content]) {
+        self.replyLabel.text = content;
         CGSize size = CGSizeMake(self.replyLabel.width,CGFLOAT_MAX);
         CGSize labelsize = [content sizeWithFont:self.replyLabel.font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
         CGRect frame = self.replyLabel.frame;
         frame.size = labelsize;
         self.replyLabel.frame = frame;
         self.timeLabel.top = self.replyLabel.bottom;
-        self.cellHeight =  self.replyLabel.height+40;
+        self.cellHeight =  self.replyLabel.height+50;
     }
     self.timeLabel.text = dict[@"creat_time"];
     if (_imageScorllview) {
@@ -239,9 +249,9 @@
             frame.size.height = fileHeight;
             self.showFielsView.frame = frame;
             
-            self.timeLabel.top = _imageScorllview.bottom;
+            self.timeLabel.top = self.showFielsView.bottom;
             self.replyButton.top = self.timeLabel.top;
-            self.cellHeight = self.replyLabel.height+40+fileHeight;
+            self.cellHeight = self.replyLabel.height+50+fileHeight;
         }
     }
 

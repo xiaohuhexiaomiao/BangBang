@@ -19,6 +19,7 @@
 #import "ShowCompanyViewController.h"
 #import "ShowExpenseAccountViewController.h"
 #import "ShowStampViewController.h"
+#import "DealWithWebViewController.h"
 
 #import "JXPopoverView.h"
 
@@ -303,7 +304,7 @@
                                 @"company_id":self.companyID};
     [[NetworkSingletion sharedManager]getContractReviewList:paramDict onSucceed:^(NSDictionary *dict) {
 
-//        NSLog(@"list %@",dict);
+        NSLog(@"list %@",dict);
         if ([dict[@"code"] integerValue] == 0) {
            
             NSArray *array = [ReviewListModel objectArrayWithKeyValuesArray:dict[@"data"]];
@@ -436,6 +437,7 @@
     ShowFileViewController *fileVC = [[ShowFileViewController alloc]init];
     ShowCompanyViewController *companyVC = [[ShowCompanyViewController alloc]init];
     ShowExpenseAccountViewController *expenseAccountVC = [[ShowExpenseAccountViewController alloc]init];
+    DealWithWebViewController *webVC = [[DealWithWebViewController alloc]init];
     if (tableView == self.firstTableview) {
         if (self.firstArray.count > 0) {
             listModel = self.firstArray[indexPath.row];
@@ -447,6 +449,7 @@
         fileVC.is_aready_approval = NO;
          companyVC.is_aready_approval = NO;
         expenseAccountVC.is_aready_approval = NO;
+        webVC.is_aready_approval = NO;
         
         payVC.is_reply = YES;
         purchaseVC.is_reply = YES;
@@ -474,6 +477,7 @@
         fileVC.is_aready_approval = YES;
         companyVC.is_aready_approval = YES;
         expenseAccountVC.is_aready_approval = YES;
+        webVC.is_aready_approval = YES;
     }else{
         if (self.thirdArray.count > 0) {
             listModel = self.thirdArray[indexPath.row];
@@ -498,6 +502,14 @@
         
         expenseAccountVC.is_aready_approval = YES;
         expenseAccountVC.is_cancel = YES;
+        
+        webVC.is_aready_approval = YES;
+        if (listModel.approval_state == 1 ||listModel.approval_state == 0) {
+             webVC.is_cancel = NO;
+        }else{
+             webVC.is_cancel = YES;
+        }
+       
     }
     if (listModel) {
         if (listModel.type == 1 || listModel.type == 2) {
@@ -534,9 +546,14 @@
             [self.navigationController pushViewController:companyVC animated:YES];
         }else if (listModel.type == 11){
             expenseAccountVC.approvalID = listModel.approval_id;
-
             expenseAccountVC.is_sepcial = self.isSpecial;
             [self.navigationController pushViewController:expenseAccountVC animated:YES];
+        }else if (listModel.type == 12){
+            webVC.approvalID = listModel.approval_id;
+            webVC.company_id = listModel.company_id;
+            webVC.participation_id = listModel.participation_id;
+            
+            [self.navigationController pushViewController:webVC animated:YES];
         }
     }
     

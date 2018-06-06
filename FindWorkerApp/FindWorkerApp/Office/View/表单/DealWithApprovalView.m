@@ -8,7 +8,7 @@
 
 #import "DealWithApprovalView.h"
 #import "CXZ.h"
-
+#import "SignNameViewController.h"
 
 @interface DealWithApprovalView()<ZLPhotoPickerBrowserViewControllerDelegate,UIActionSheetDelegate>
 
@@ -17,8 +17,6 @@
 @property(nonatomic ,strong)UIButton *approvalButton;
 
 @property(nonatomic ,strong)UIView *menuView;
-
-@property(nonatomic ,strong)UIButton *photoBtn;
 
 @property(nonatomic ,strong)UIScrollView *imageScrollview;
 
@@ -349,33 +347,45 @@
 {
     
     if (self.formType == 0) {//公司审批 处理
-        NSDictionary *dict = @{@"uid":[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"],
-                               @"participation_id":self.participation_id,
-                               @"is_agree":self.agreeStr,
-                               @"opinion":self.replyTextfield.text,
-                               @"approval_id":self.approvalID};
-        NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
-        [paramDict addEntriesFromDictionary:dict];
-        if (![NSString isBlankString:photo_id]) {
-            [paramDict setObject:photo_id forKey:@"picture"];
-        }
-        
-        [[NetworkSingletion sharedManager]dealWithReview:paramDict onSucceed:^(NSDictionary *dict) {
-            [SVProgressHUD dismiss];
-            if ([dict[@"code"] integerValue] == 0) {
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"UPLOAD_NEW_DATA" object:nil];
-                [self.viewController.navigationController popViewControllerAnimated:YES];
-            }else{
+        if (self.is_sign == YES && [self.agreeStr integerValue]==1) {
+            SignNameViewController *signVC = [[SignNameViewController alloc]init];
+            signVC.contentJson = self.replyTextfield.text;
+            signVC.applyid = self.approvalID;
+            signVC.workID = self.participation_id;
+            signVC.signType = 5;
+            signVC.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:signVC animated:YES];
+            self.viewController.hidesBottomBarWhenPushed = YES;
+        }else{
+            NSDictionary *dict = @{@"uid":[[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"],
+                                   @"participation_id":self.participation_id,
+                                   @"is_agree":self.agreeStr,
+                                   @"opinion":self.replyTextfield.text,
+                                   @"approval_id":self.approvalID};
+            NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
+            [paramDict addEntriesFromDictionary:dict];
+            if (![NSString isBlankString:photo_id]) {
+                [paramDict setObject:photo_id forKey:@"picture"];
+            }
+            
+            [[NetworkSingletion sharedManager]dealWithReview:paramDict onSucceed:^(NSDictionary *dict) {
+                [SVProgressHUD dismiss];
+                if ([dict[@"code"] integerValue] == 0) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"UPLOAD_NEW_DATA" object:nil];
+                    [self.viewController.navigationController popViewControllerAnimated:YES];
+                }else{
+                    self.approvalButton.userInteractionEnabled = YES;
+                    self.approvalButton.backgroundColor = GREEN_COLOR;
+                    [MBProgressHUD showError:dict[@"message"] toView:self];
+                }
+            } OnError:^(NSString *error) {
+                [SVProgressHUD dismiss];
                 self.approvalButton.userInteractionEnabled = YES;
                 self.approvalButton.backgroundColor = GREEN_COLOR;
-                [MBProgressHUD showError:dict[@"message"] toView:self];
-            }
-        } OnError:^(NSString *error) {
-            [SVProgressHUD dismiss];
-            self.approvalButton.userInteractionEnabled = YES;
-            self.approvalButton.backgroundColor = GREEN_COLOR;
-            [MBProgressHUD showError:error toView:self];
-        }];
+                [MBProgressHUD showError:error toView:self];
+            }];
+        }
+        
     }else{//个人审批处理
         NSDictionary *dict = @{@"approval_state":self.agreeStr,
                                @"opinion":self.replyTextfield.text,

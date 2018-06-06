@@ -94,48 +94,48 @@
 //上传我的位置
 - (void)uploadMyPosition:(AfterProcess)after latitude:(CGFloat)latitude longtitude:(CGFloat)longtitude {
     
-    SWUploadPositionCmd *uploadCmd = [[SWUploadPositionCmd alloc] init];
-    uploadCmd.latitude = latitude;
-    uploadCmd.longitude = longtitude;
-    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
-    uploadCmd.uid = uid;
+//    SWUploadPositionCmd *uploadCmd = [[SWUploadPositionCmd alloc] init];
+//    uploadCmd.latitude = latitude;
+//    uploadCmd.longitude = longtitude;
+//    NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
+//    uploadCmd.uid = uid;
+//
+//    [[HttpNetwork getInstance] requestPOST:uploadCmd success:^(BaseRespond *respond) {
+//
+//        SWUploadInfo *uploadInfo = [[SWUploadInfo alloc] initWithDictionary:respond.data];
+//
+//        if(uploadInfo.code == 0) {
+//
+//            after();
+//
+//        }else {
+//
+//
+//
+//            BOOL is_login = [[NSUserDefaults standardUserDefaults] boolForKey:@"IS_LOGIN"];
+//
+//            if(!is_login) {
+//
+//
+//                [MBProgressHUD showError:@"请先登录" toView:self.view];
+//
+//
+//            }else {
+//
+//                [MBProgressHUD showError:uploadInfo.message toView:self.view];
+//
+//            }
+//
+//
+//
+//        }
     
-    [[HttpNetwork getInstance] requestPOST:uploadCmd success:^(BaseRespond *respond) {
-        
-        SWUploadInfo *uploadInfo = [[SWUploadInfo alloc] initWithDictionary:respond.data];
-    
-        if(uploadInfo.code == 0) {
-            
-            after();
-            
-        }else {
-            
-          
-            
-            BOOL is_login = [[NSUserDefaults standardUserDefaults] boolForKey:@"IS_LOGIN"];
-            
-            if(!is_login) {
-                
-                
-                [MBProgressHUD showError:@"请先登录" toView:self.view];
-                
-                
-            }else {
-                
-                [MBProgressHUD showError:uploadInfo.message toView:self.view];
-                
-            }
-            
-            
-            
-        }
-        
-    } failed:^(BaseRespond *respond, NSString *error) {
-        
-        
-        [MBProgressHUD showError:error toView:self.view];
-        
-    }];
+//    } failed:^(BaseRespond *respond, NSString *error) {
+//        
+//        
+//        [MBProgressHUD showError:error toView:self.view];
+//        
+//    }];
     
 }
 
